@@ -1,11 +1,9 @@
 package com.howard.findmyip.screens
-import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -54,7 +52,7 @@ fun DisplayError(errorMessage: String) {
 fun DisplaySuccess(response: FindMyIpResponse) {
     Column {
         Text(text = "Your City: ${response.city}")
-        Text(text = "Your Country: ${response.country_name}")
+        Text(text = "Your Country: ${response.countryName}")
         Text(text = "Your Region: ${response.region}")
     }
 }

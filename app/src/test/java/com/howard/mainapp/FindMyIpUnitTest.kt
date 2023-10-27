@@ -4,7 +4,10 @@ import com.howard.findmyip.model.FindMyIpApi
 import com.howard.findmyip.model.FindMyIpResponse
 import com.howard.findmyip.repository.FindMyIpRepo
 import kotlinx.coroutines.runBlocking
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -43,5 +46,17 @@ class FindMyIpUnitTest {
         assertEquals(result.region, response.region)
         assertEquals(result.city, response.city)
         assertEquals(result.country_name, response.country_name)
+    }
+
+    @Test
+    fun `test getIp failure`() = runBlocking {
+        val errorResponse = "{\n" + "  \"type\": \"error\",\n" + "  \"message\": \"An error occurred.\"\n" + "}"
+        val errorResponseBody = errorResponse.toResponseBody("application/json".toMediaTypeOrNull())
+        val mockResponse = Response.error<FindMyIpResponse>(429, errorResponseBody)
+
+        `when`(api.getMyIp()).thenReturn(mockResponse)
+
+        val result = api.getMyIp()
+        assertFalse(result.isSuccessful)
     }
 }

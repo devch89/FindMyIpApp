@@ -45,7 +45,7 @@ fun DisplayIp(viewModel: FindMyIpViewModel) {
 
 @Composable
 fun DisplayError(errorMessage: String) {
-    Text(text = errorMessage, color = Color.Red)
+    Text(text = errorMessage.takeIf { it.isNotEmpty() } ?: "An error has occurred", color = Color.Red)
 }
 
 @Composable

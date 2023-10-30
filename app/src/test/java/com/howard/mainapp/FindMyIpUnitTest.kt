@@ -3,6 +3,7 @@ package com.howard.mainapp
 import com.howard.findmyip.model.FindMyIpApi
 import com.howard.findmyip.model.FindMyIpResponse
 import com.howard.findmyip.repository.FindMyIpRepo
+import com.howard.findmyip.repository.FindMyIpRepositoryImpl
 import kotlinx.coroutines.runBlocking
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.ResponseBody.Companion.toResponseBody
@@ -26,7 +27,7 @@ class FindMyIpUnitTest {
     @Before
     fun setUp() {
         MockitoAnnotations.openMocks(this)
-        repository = FindMyIpRepo()
+        repository = FindMyIpRepositoryImpl(api)
         api = mock(FindMyIpApi::class.java)
     }
 
